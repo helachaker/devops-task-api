@@ -2,7 +2,8 @@
 import logging
 import time
 from datetime import datetime
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, Response
+
 from prometheus_client import Counter, Histogram, generate_latest
 import sqlite3
 import os
@@ -66,7 +67,7 @@ def health():
 @app.route('/metrics', methods=['GET'])
 def metrics():
     """Prometheus metrics endpoint"""
-    return generate_latest(), 200
+    return Response(generate_latest(), mimetype='text/plain; version=0.0.4; charset=utf-8')
 
 @app.route('/tasks', methods=['GET'])
 def get_tasks():
@@ -145,6 +146,8 @@ def handle_error(error):
     logger.error(f"Unhandled error: {str(error)}")
     return jsonify({"error": "Internal server error"}), 500
 
+init_db()
+
 if __name__ == '__main__':
-    init_db()
+
     app.run(host='0.0.0.0', port=5000, debug=False)

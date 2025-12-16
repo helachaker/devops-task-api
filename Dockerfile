@@ -12,19 +12,21 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-# Copy dependencies from builder
-COPY --from=builder /root/.local /root/.local
+
+# Copy dependencies from builder to /usr/local
+COPY --from=builder /root/.local /usr/local
 
 # Copy application code
 COPY app.py .
 
-# Make sure scripts in .local are usable
-ENV PATH=/root/.local/bin:$PATH
+# Make sure scripts are usable
+ENV PATH=/usr/local/bin:$PATH
 
 # Create non-root user
 RUN useradd -m -u 1000 appuser && \
-    chown -R appuser:appuser /app
-
+    chown -R appuser:appuser /app && \
+    mkdir -p /data && \
+    chown -R appuser:appuser /data
 USER appuser
 
 # Expose port

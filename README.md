@@ -1,6 +1,6 @@
-# 🚀 Task Manager API - DevOps Project
+#  Task Manager API - DevOps Project
 
-[![CI/CD Pipeline](https://github.com/YOUR_USERNAME/devops-task-api/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/YOUR_USERNAME/devops-task-api/actions)
+[![CI/CD Pipeline](https://github.com/helachaker/devops-task-api/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/helachaker/devops-task-api/actions)
 [![Docker Image](https://img.shields.io/docker/v/YOUR_USERNAME/task-api?label=Docker&logo=docker)](https://hub.docker.com/r/YOUR_USERNAME/task-api)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
@@ -492,9 +492,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📧 Contact
 
-Your Name - your.email@example.com
+Hela Chaker - helachaker01@gmail.com
 
-Project Link: [https://github.com/YOUR_USERNAME/devops-task-api](https://github.com/YOUR_USERNAME/devops-task-api)
+Project Link: [https://github.com/helachaker/devops-task-api](https://github.com/helachaker/devops-task-api)
 
 ---
 
