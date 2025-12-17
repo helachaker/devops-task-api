@@ -1,447 +1,449 @@
-# 🎉 VOTRE PROJET DEVOPS EST PRÊT !
+# 🚀 GUIDE DE DÉMARRAGE RAPIDE
 
-## 📦 Contenu du Package
-
-Vous avez maintenant un projet DevOps **COMPLET** et **PRODUCTION-READY** avec:
-
-✅ **Application:** API REST Task Manager (150 lignes exactement)
-✅ **Tests:** 12 tests unitaires avec 92% de couverture
-✅ **Docker:** Dockerfile optimisé + docker-compose
-✅ **CI/CD:** Pipeline GitHub Actions complet (5 jobs)
-✅ **Kubernetes:** Manifests prêts pour déploiement
-✅ **Observabilité:** Prometheus + Grafana + Logs structurés
-✅ **Sécurité:** SAST (Bandit) + DAST (OWASP ZAP) + Trivy
-✅ **Documentation:** README complet + 5 guides détaillés
+**Temps estimé : 5-10 minutes**
 
 ---
 
-## 🚀 DÉMARRAGE RAPIDE (5 MINUTES)
+## 📋 PRÉREQUIS
 
-### Option 1: Docker Compose (RECOMMANDÉ pour la démo)
+Avant de commencer, assurez-vous d'avoir installé :
 
+- ✅ **Docker Desktop** (Windows/Mac) ou Docker Engine (Linux)
+- ✅ **Git** (pour cloner le repository)
+- ✅ **Un navigateur web** (Chrome, Firefox, Edge, etc.)
+
+**Optionnel :**
+- Python 3.11+ (pour développement local)
+- kubectl + minikube/kind (pour Kubernetes)
+
+---
+
+## ⚡ DÉMARRAGE RAPIDE (3 ÉTAPES)
+
+### 1️⃣ CLONER LE PROJET
 ```bash
+git clone https://github.com/helachaker/devops-task-api.git
 cd devops-task-api
+```
 
-# Démarrer tous les services
+### 2️⃣ LANCER LES SERVICES
+```bash
 docker-compose up -d
+```
 
-# Vérifier que ça fonctionne
+**Attendez 30 secondes** que tous les services démarrent.
+
+### 3️⃣ VÉRIFIER QUE ÇA FONCTIONNE
+
+**Ouvrez votre navigateur sur :**
+
+- 🌐 **API** : http://localhost:5000/health
+- 📊 **Prometheus** : http://localhost:9090
+- 📈 **Grafana** : http://localhost:3000 (login: admin/admin)
+
+**Si vous voyez ces interfaces → ✅ TOUT FONCTIONNE !**
+
+---
+
+## 🧪 TESTER L'API
+
+### Windows (PowerShell)
+```powershell
+# Health check
+Invoke-RestMethod -Uri http://localhost:5000/health
+
+# Créer une tâche
+$headers = @{"Content-Type" = "application/json"}
+$body = '{"title":"Ma premiere tache","description":"Test de l API","status":"pending"}'
+Invoke-RestMethod -Uri http://localhost:5000/tasks -Method POST -Headers $headers -Body $body
+
+# Lister toutes les tâches
+Invoke-RestMethod -Uri http://localhost:5000/tasks
+```
+
+### Linux/Mac (Bash)
+```bash
+# Health check
 curl http://localhost:5000/health
 
-# Accès:
-# - API: http://localhost:5000
-# - Prometheus: http://localhost:9090
-# - Grafana: http://localhost:3000 (admin/admin)
-```
-
-### Option 2: Script Interactif
-
-```bash
-cd devops-task-api
-chmod +x quickstart.sh
-./quickstart.sh
-
-# Choisir option 1, 2, 3, 4 ou 5 selon vos besoins
-```
-
----
-
-## 📋 ÉTAPES POUR COMPLÉTER LE PROJET
-
-### JOUR 1-2: Setup Initial (Vous êtes là ✅)
-
-- [x] Projet créé avec toute la structure
-- [x] Code de l'API (150 lignes)
-- [x] Tests unitaires
-- [x] Docker + docker-compose
-- [ ] **À FAIRE:** Créer le repo GitHub et pousser le code
-
-### JOUR 3: GitHub Setup
-
-```bash
-# 1. Créer un repo sur GitHub
-# 2. Initialiser Git
-cd devops-task-api
-git init
-git add .
-git commit -m "feat: initial project setup"
-git branch -M main
-git remote add origin https://github.com/VOTRE_USERNAME/devops-task-api.git
-git push -u origin main
-
-# 3. Créer les 21 GitHub Issues
-#    Utiliser GITHUB_ISSUES.md comme référence
-#    Copier-coller chaque issue dans GitHub
-
-# 4. Créer un Project Board
-#    GitHub → Projects → New Project → Board
-#    Colonnes: To Do, In Progress, Done
-
-# 5. Ajouter les secrets GitHub
-#    Settings → Secrets and variables → Actions
-#    Ajouter: DOCKER_USERNAME et DOCKER_PASSWORD
-```
-
-### JOUR 4: Docker Hub
-
-```bash
-# 1. Créer un compte Docker Hub (gratuit)
-#    https://hub.docker.com/
-
-# 2. Créer un repository
-#    Docker Hub → Create Repository → "task-api"
-
-# 3. Mettre à jour les fichiers
-#    Remplacer "YOUR_DOCKERHUB_USERNAME" par votre username dans:
-#    - .github/workflows/ci-cd.yml
-#    - k8s/deployment.yaml
-#    - README.md
-
-# 4. Tester le build et push local
-docker login
-docker build -t VOTRE_USERNAME/task-api:latest .
-docker push VOTRE_USERNAME/task-api:latest
-```
-
-### JOUR 5: CI/CD
-
-```bash
-# Le pipeline se déclenche automatiquement !
-# Aller sur: https://github.com/VOTRE_USERNAME/devops-task-api/actions
-
-# Vérifier que les 5 jobs passent:
-# ✅ test
-# ✅ sast
-# ✅ build
-# ✅ dast
-# ✅ notify
-```
-
-### JOUR 6: Kubernetes
-
-```bash
-# 1. Installer minikube
-#    https://minikube.sigs.k8s.io/docs/start/
-
-# 2. Déployer
-minikube start
-kubectl apply -f k8s/
-kubectl get pods
-
-# 3. Tester
-minikube service task-api-service --url
-curl $(minikube service task-api-service --url)/health
-
-# 4. Scaling
-kubectl scale deployment task-api --replicas=5
-kubectl get pods
-```
-
-### JOUR 7: Peer Review + Documentation
-
-```bash
-# 1. Trouver un collègue pour peer review
-#    Utiliser PEER_REVIEW_GUIDE.md
-
-# 2. Créer des PRs pour vos features
-#    Demander reviews sur au moins 1-2 PRs
-
-# 3. Compléter FINAL_REPORT.md
-#    Remplir avec vos métriques réelles
-
-# 4. Préparer la présentation
-#    Lire PRESENTATION_GUIDE.md
-#    Tester votre démo
-```
-
----
-
-## 📚 DOCUMENTATION DISPONIBLE
-
-### Guides Principaux
-
-1. **README.md** (800+ lignes)
-   - Installation complète
-   - Documentation API avec exemples curl
-   - Instructions Docker, Kubernetes, CI/CD
-   - Tout ce dont vous avez besoin !
-
-2. **PRESENTATION_GUIDE.md** (100+ lignes)
-   - Structure slide par slide
-   - Script de démo minute par minute
-   - Réponses aux 13 questions fréquentes
-   - Checklist avant présentation
-
-3. **FINAL_REPORT.md** (Template 2 pages)
-   - Structure complète du rapport
-   - À remplir avec vos données
-
-4. **GITHUB_ISSUES.md**
-   - 21 issues prêtes à copier-coller
-   - Organisées par jour
-   - Avec acceptance criteria
-
-5. **PEER_REVIEW_GUIDE.md**
-   - Comment donner des reviews de qualité
-   - Exemples de bons/mauvais commentaires
-   - Workflow complet
-
-### Scripts Utilitaires
-
-6. **COMMANDS.sh**
-   - Toutes les commandes dans un seul fichier
-   - 11 sections (setup, docker, k8s, security, etc.)
-   - Copier-coller au besoin
-
-7. **quickstart.sh** (Exécutable)
-   - Démarrage interactif en 1 commande
-   - 5 options de déploiement
-
-8. **PROJECT_STRUCTURE.md**
-   - Vue d'ensemble de tous les fichiers
-   - Statistiques du projet
-   - Ordre de lecture recommandé
-
----
-
-## ✅ CHECKLIST DE VALIDATION
-
-Avant de soumettre votre projet, vérifiez:
-
-### Code & Tests
-- [ ] app.py fait exactement 150 lignes
-- [ ] Tous les tests passent: `pytest tests/ -v`
-- [ ] Couverture >90%: `pytest --cov=app`
-
-### Docker
-- [ ] Image build: `docker build -t task-api .`
-- [ ] Container run: `docker run -p 5000:5000 task-api`
-- [ ] Image sur Docker Hub
-- [ ] docker-compose fonctionne
-
-### CI/CD
-- [ ] Pipeline GitHub Actions est vert
-- [ ] Tous les 5 jobs passent
-- [ ] Image pushed automatiquement
-
-### Kubernetes
-- [ ] Manifests valides: `kubectl apply -f k8s/ --dry-run=client`
-- [ ] Déploiement réussi sur minikube
-- [ ] Pods running: `kubectl get pods`
-- [ ] Service accessible
-
-### Observabilité
-- [ ] Métriques Prometheus accessibles: `/metrics`
-- [ ] Logs structurés en JSON
-- [ ] Grafana peut se connecter à Prometheus
-
-### Sécurité
-- [ ] Bandit scan: 0 critical/high
-- [ ] Safety check: pas de CVEs
-- [ ] OWASP ZAP scan effectué
-- [ ] Trivy scan de l'image
-
-### Documentation
-- [ ] README.md complet et à jour
-- [ ] Rapport final complété
-- [ ] Présentation préparée
-- [ ] Peer review effectuée
-
-### GitHub
-- [ ] 21 issues créées
-- [ ] Project board configuré
-- [ ] Au moins 15 commits
-- [ ] Au moins 1 PR reviewée
-
----
-
-## 🎯 COMMANDES LES PLUS UTILES
-
-```bash
-# Démarrer rapidement
-docker-compose up -d
-
-# Voir les logs
-docker-compose logs -f app
-
-# Tester l'API
-curl http://localhost:5000/health
+# Créer une tâche
 curl -X POST http://localhost:5000/tasks \
   -H "Content-Type: application/json" \
-  -d '{"title":"Test","description":"Demo"}'
+  -d '{"title":"Ma premiere tache","description":"Test de l API","status":"pending"}'
 
-# Run tests
-pytest tests/ -v --cov=app
+# Lister toutes les tâches
+curl http://localhost:5000/tasks
+```
 
-# Security scans
+---
+
+## 📊 EXPLORER GRAFANA
+
+1. **Ouvrir Grafana** : http://localhost:3000
+2. **Se connecter** : admin / admin (Skip si demandé de changer)
+3. **Ajouter Prometheus comme data source** :
+   - Menu → Configuration → Data Sources
+   - Add data source → Prometheus
+   - URL : `http://prometheus:9090`
+   - Save & Test
+4. **Créer un dashboard** :
+   - Menu → Dashboards → New Dashboard
+   - Add visualization
+   - Requête : `api_requests_total`
+   - Apply
+
+**Vous verrez les métriques de l'API en temps réel ! 📈**
+
+---
+
+## 🛑 ARRÊTER LES SERVICES
+```bash
+docker-compose down
+```
+
+Pour supprimer aussi les données :
+```bash
+docker-compose down -v
+```
+
+---
+
+## 🔄 OPTIONS DE DÉMARRAGE
+
+### Option 1 : Docker Compose (RECOMMANDÉ)
+
+**Pour qui :** Démo complète avec observabilité
+```bash
+docker-compose up -d
+```
+
+**Services lancés :**
+- API (port 5000)
+- Prometheus (port 9090)
+- Grafana (port 3000)
+
+---
+
+### Option 2 : Docker uniquement
+
+**Pour qui :** Juste l'API, sans monitoring
+```bash
+# Télécharger l'image depuis Docker Hub
+docker pull helachaker/task-manager-api:latest
+
+# Lancer le container
+docker run -d -p 5000:5000 --name task-api helachaker/task-manager-api:latest
+
+# Tester
+curl http://localhost:5000/health
+
+# Arrêter
+docker stop task-api
+docker rm task-api
+```
+
+---
+
+### Option 3 : Développement local (Python)
+
+**Pour qui :** Développeurs qui veulent modifier le code
+```bash
+# Créer un environnement virtuel
+python -m venv venv
+
+# Activer (Windows)
+.\venv\Scripts\Activate.ps1
+
+# Activer (Linux/Mac)
+source venv/bin/activate
+
+# Installer les dépendances
+pip install -r requirements.txt
+
+# Lancer l'application
+python app.py
+```
+
+L'API sera sur http://localhost:5000
+
+---
+
+### Option 4 : Kubernetes
+
+**Pour qui :** Tests de production et scaling
+
+**Prérequis :** kubectl + minikube ou kind
+```bash
+# Démarrer minikube (si pas déjà fait)
+minikube start
+
+# Déployer l'application
+kubectl apply -f k8s/
+
+# Vérifier les pods
+kubectl get pods
+
+# Accéder à l'API
+minikube service task-api-service --url
+```
+
+Ou avec port-forward :
+```bash
+kubectl port-forward service/task-api-service 8080:80
+curl http://localhost:8080/health
+```
+
+---
+
+## 📚 ENDPOINTS DISPONIBLES
+
+### Health Check
+```
+GET /health
+```
+Retourne le statut de santé de l'API.
+
+### Métriques Prometheus
+```
+GET /metrics
+```
+Retourne les métriques au format Prometheus.
+
+### Liste des tâches
+```
+GET /tasks
+```
+Retourne toutes les tâches.
+
+### Obtenir une tâche
+```
+GET /tasks/{id}
+```
+Retourne une tâche spécifique.
+
+### Créer une tâche
+```
+POST /tasks
+Content-Type: application/json
+
+{
+  "title": "Titre de la tâche",
+  "description": "Description optionnelle",
+  "status": "pending"
+}
+```
+
+### Modifier une tâche
+```
+PUT /tasks/{id}
+Content-Type: application/json
+
+{
+  "title": "Nouveau titre",
+  "status": "completed"
+}
+```
+
+### Supprimer une tâche
+```
+DELETE /tasks/{id}
+```
+
+---
+
+## 🔍 EXPLORER LE MONITORING
+
+### Prometheus (http://localhost:9090)
+
+**Requêtes utiles :**
+```promql
+# Nombre total de requêtes
+api_requests_total
+
+# Taux de requêtes par minute
+rate(api_requests_total[1m]) * 60
+
+# Latence moyenne
+rate(api_request_duration_seconds_sum[5m]) / rate(api_request_duration_seconds_count[5m])
+
+# Requêtes par endpoint
+sum by (endpoint) (api_requests_total)
+```
+
+### Grafana (http://localhost:3000)
+
+1. Ajouter Prometheus comme data source
+2. Créer des panels avec les requêtes ci-dessus
+3. Générer du trafic avec les tests API
+4. Observer les graphiques en temps réel
+
+---
+
+## 🧪 LANCER LES TESTS
+```bash
+# Installer pytest (si environnement local)
+pip install pytest pytest-cov
+
+# Lancer tous les tests
+pytest tests/ -v
+
+# Avec couverture de code
+pytest tests/ --cov=app --cov-report=html
+
+# Voir le rapport HTML
+open htmlcov/index.html  # Mac
+start htmlcov/index.html # Windows
+```
+
+---
+
+## 🔒 SCANS DE SÉCURITÉ
+```bash
+# Analyse statique avec Bandit
+pip install bandit
 bandit -r . -f json -o bandit-report.json
+
+# Vérification des dépendances
+pip install safety
 safety check
 
-# Kubernetes
-kubectl apply -f k8s/
-kubectl get pods
-kubectl logs -l app=task-api -f
-
-# Cleanup
-docker-compose down
-kubectl delete -f k8s/
+# Scan de l'image Docker (nécessite Trivy)
+trivy image helachaker/task-manager-api:latest
 ```
 
 ---
 
-## 💡 CONSEILS POUR RÉUSSIR
+## 📖 DOCUMENTATION COMPLÈTE
 
-### Pour le Code
-1. ✅ **N'ajoutez rien à app.py** - Il fait exactement 150 lignes
-2. ✅ **Tests d'abord** - Vérifiez que tout passe avant de continuer
-3. ✅ **Commits réguliers** - Au moins 1-2 par jour
+Pour aller plus loin :
 
-### Pour le CI/CD
-1. ✅ **Secrets GitHub** - Les ajouter AVANT le premier push
-2. ✅ **Patience** - Le premier build prend ~5 minutes
-3. ✅ **Logs** - Si ça échoue, lire les logs GitHub Actions
-
-### Pour Kubernetes
-1. ✅ **Minikube start** - Avec assez de ressources (2 CPU, 4GB RAM)
-2. ✅ **Image locale** - Utiliser `eval $(minikube docker-env)`
-3. ✅ **Port-forward** - Plus simple que NodePort pour tester
-
-### Pour la Présentation
-1. ✅ **Pratiquer** - Au moins 2 fois avant le jour J
-2. ✅ **Démo live** - Plus impressionnant qu'un PowerPoint
-3. ✅ **Backup** - Screenshots si la démo échoue
-
-### Pour le Rapport
-1. ✅ **Métriques réelles** - Utiliser VOS chiffres, pas les exemples
-2. ✅ **Honnêteté** - Parler des défis rencontrés
-3. ✅ **Relecture** - 0 fautes d'orthographe
+- **README.md** - Documentation complète du projet
+- **PRESENTATION_GUIDE.md** - Guide pour la présentation
+- **FINAL_REPORT.md** - Rapport technique détaillé
+- **PROJECT_STRUCTURE.md** - Structure du projet
+- **COMMANDS.sh** - Toutes les commandes en un fichier
 
 ---
 
-## 🆘 BESOIN D'AIDE ?
+## 🆘 DÉPANNAGE
 
-### Documentation
-- 📖 **README.md** - Documentation complète de l'API
-- 🔧 **COMMANDS.sh** - Toutes les commandes
-- 🎤 **PRESENTATION_GUIDE.md** - Q&A complètes
-
-### Debugging
+### Les containers ne démarrent pas
 ```bash
-# API ne démarre pas
+# Voir les logs d'erreur
+docker-compose logs
+
+# Reconstruire les images
+docker-compose build --no-cache
+docker-compose up -d
+```
+
+### L'API ne répond pas
+```bash
+# Vérifier que le container tourne
+docker ps | grep task-api
+
+# Voir les logs
 docker-compose logs app
 
-# Tests échouent
-pytest tests/ -vv -s
-
-# Kubernetes pods en erreur
-kubectl describe pod <pod-name>
-kubectl logs <pod-name>
-
-# Pipeline CI/CD échoue
-# Regarder les logs sur GitHub Actions
+# Redémarrer le service
+docker-compose restart app
 ```
 
-### Ressources Externes
-- Flask: https://flask.palletsprojects.com/
-- Docker: https://docs.docker.com/
-- Kubernetes: https://kubernetes.io/docs/
-- Prometheus: https://prometheus.io/docs/
-- GitHub Actions: https://docs.github.com/actions
+### Port déjà utilisé
 
----
-
-## 🎓 NOTES IMPORTANTES
-
-### À Personnaliser
-Chercher et remplacer dans TOUS les fichiers:
-- `YOUR_USERNAME` → Votre username GitHub
-- `YOUR_DOCKERHUB_USERNAME` → Votre username Docker Hub
-- `[Your Name]` → Votre nom
-- `your.email@example.com` → Votre email
-
-### Fichiers à Mettre à Jour
-1. **k8s/deployment.yaml** - ligne 17
-2. **.github/workflows/ci-cd.yml** - ligne 9
-3. **README.md** - plusieurs endroits
-4. **FINAL_REPORT.md** - en-tête
-5. **LICENSE** - ligne 3
-
-### Ligne de Code
-Le fichier `app.py` fait **EXACTEMENT 150 lignes**.
-Ne supprimez ni n'ajoutez RIEN sauf si vous réduisez ailleurs !
-
----
-
-## 📊 STATISTIQUES DU PROJET
-
+Si les ports 5000, 9090 ou 3000 sont déjà utilisés :
+```bash
+# Modifier les ports dans docker-compose.yml
+# Par exemple : "5001:5000" au lieu de "5000:5000"
 ```
-📁 Fichiers totaux:        25 fichiers
-📝 Lignes de code (app):   150 lignes
-🧪 Tests unitaires:        12 tests
-📚 Documentation:          5 guides (3500+ lignes)
-🔨 Jobs CI/CD:             5 jobs
-☸️  Kubernetes manifests:  3 fichiers
-🐳 Services Docker:        3 services
-⏱️  Temps de setup:        5-10 minutes
+
+### Kubernetes pods en erreur
+```bash
+# Détails du pod
+kubectl describe pod <nom-du-pod>
+
+# Logs du pod
+kubectl logs <nom-du-pod>
+
+# Redémarrer le déploiement
+kubectl rollout restart deployment/task-api
 ```
 
 ---
 
-## 🎉 FÉLICITATIONS !
+## 💡 CONSEILS
 
-Vous avez maintenant un projet DevOps:
-- ✅ **Complet** - Couvre TOUS les aspects DevOps
-- ✅ **Professionnel** - Qualité production
-- ✅ **Documenté** - 3500+ lignes de docs
-- ✅ **Testable** - Tests + CI/CD
-- ✅ **Sécurisé** - 4 types de scans
-- ✅ **Scalable** - Kubernetes ready
-- ✅ **Observable** - Metrics + Logs + Tracing
+### Pour une démo rapide
 
-**C'est un projet dont vous pouvez être fier ! 🚀**
+1. Lancer Docker Compose
+2. Ouvrir les 3 interfaces (API, Prometheus, Grafana)
+3. Créer quelques tâches via l'API
+4. Montrer les métriques dans Grafana
 
----
+### Pour du développement
 
-## 📧 PROCHAINES ÉTAPES
+1. Utiliser l'environnement Python local
+2. Modifier `app.py`
+3. Relancer `python app.py`
+4. Les changements sont immédiats
 
-1. **Aujourd'hui** - Créer le repo GitHub et pousser le code
-2. **Demain** - Configurer Docker Hub et CI/CD
-3. **Cette semaine** - Déployer sur Kubernetes
-4. **Avant présentation** - Peer review + documentation
+### Pour tester la production
 
----
-
-## 🌟 BONUS - Points Bonus Possibles
-
-Pour impressionner encore plus:
-
-1. **Déploiement Cloud** (⭐⭐⭐)
-   - AWS EKS ou GCP GKE
-   - Instructions dans README.md
-
-2. **Base de données externe** (⭐⭐)
-   - PostgreSQL au lieu de SQLite
-   - StatefulSet Kubernetes
-
-3. **Authentication** (⭐⭐)
-   - JWT tokens
-   - Middleware d'auth
-
-4. **Dashboard Grafana personnalisé** (⭐)
-   - Import/export du dashboard
-   - Ajout dans docker-compose
-
-5. **Tests de charge** (⭐)
-   - Locust ou JMeter
-   - Rapport de performance
+1. Déployer sur Kubernetes
+2. Tester le scaling : `kubectl scale deployment task-api --replicas=5`
+3. Observer le comportement avec HPA
 
 ---
 
-**🎊 BON COURAGE ET AMUSEZ-VOUS BIEN ! 🎊**
+## ⏱️ TEMPS ESTIMÉS
 
-N'oubliez pas : le but est d'apprendre, pas d'être parfait !
+| Action | Durée |
+|--------|-------|
+| Clone + docker-compose up | 2-3 min |
+| Premier test de l'API | 1 min |
+| Configuration Grafana | 5 min |
+| Tests unitaires | 2 min |
+| Déploiement Kubernetes | 5 min |
+
+**Total pour tout essayer : ~15-20 minutes**
 
 ---
 
-*Créé avec ❤️ pour votre succès DevOps*
-*Questions ? Relire les guides dans le projet !*
+## 🎯 PROCHAINES ÉTAPES
+
+Maintenant que le projet tourne :
+
+1. **Explorer l'API** - Tester tous les endpoints
+2. **Créer des dashboards Grafana** - Visualiser les métriques
+3. **Lire la documentation** - README.md et autres guides
+4. **Tester Kubernetes** - Scaling et auto-healing
+5. **Modifier le code** - Ajouter vos propres features
+
+---
+
+## 🌟 PROJET PRODUCTION-READY
+
+Ce projet démontre :
+
+✅ Architecture microservices (API + monitoring)  
+✅ Containerisation avec Docker  
+✅ Orchestration avec Docker Compose et Kubernetes  
+✅ Observabilité avec Prometheus et Grafana  
+✅ CI/CD avec GitHub Actions  
+✅ Sécurité avec scans automatiques  
+✅ Tests automatisés (92% coverage)  
+✅ Documentation complète  
+
+---
+
+## 📧 LIENS UTILES
+
+- **Repository GitHub** : https://github.com/helachaker/devops-task-api
+- **Docker Hub** : https://hub.docker.com/r/helachaker/task-manager-api
+- **Pipeline CI/CD** : https://github.com/helachaker/devops-task-api/actions
+
+---
+
+**🚀 Bon démarrage et amusez-vous bien !**
+
+*En cas de problème, consultez README.md ou les autres guides.*
