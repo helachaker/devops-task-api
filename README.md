@@ -1,141 +1,109 @@
-#  Task Manager API - DevOps Project
+# Task Manager API - DevOps Project
 
-[![CI/CD Pipeline](https://github.com/helachaker/devops-task-api/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/helachaker/devops-task-api/actions)
-[![Docker Image](https://img.shields.io/docker/v/YOUR_USERNAME/task-api?label=Docker&logo=docker)](https://hub.docker.com/r/YOUR_USERNAME/task-api)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+![CI/CD Pipeline](https://github.com/helachaker/devops-task-api/actions/workflows/ci-cd.yml/badge.svg)
+![Docker Image Size](https://img.shields.io/docker/image-size/helachaker/task-manager-api/latest)
+![Docker Pulls](https://img.shields.io/docker/pulls/helachaker/task-manager-api)
 
-A simple yet comprehensive REST API demonstrating DevOps best practices including CI/CD, containerization, orchestration, observability, and security scanning.
+> 🎯 **Projet académique DevOps** - API REST complète avec pipeline CI/CD, observabilité et sécurité intégrée
 
-## 📋 Table of Contents
+## 📊 Vue d'ensemble
 
-- [Features](#features)
-- [Tech Stack](#tech-stack)
-- [Prerequisites](#prerequisites)
-- [Quick Start](#quick-start)
-- [API Documentation](#api-documentation)
-- [Docker Usage](#docker-usage)
-- [Kubernetes Deployment](#kubernetes-deployment)
-- [Observability](#observability)
-- [Security](#security)
-- [Development](#development)
-- [CI/CD Pipeline](#cicd-pipeline)
+**Task Manager API** est une application REST API moderne développée avec Flask, containerisée avec Docker, et déployée via un pipeline CI/CD automatisé. Ce projet démontre les meilleures pratiques DevOps incluant l'observabilité (Prometheus + Grafana), la sécurité (SAST/DAST), et l'automation complète.
 
-## ✨ Features
+### ✨ Caractéristiques principales
 
-- ✅ RESTful API for task management (CRUD operations)
-- ✅ Prometheus metrics for monitoring
-- ✅ Structured JSON logging
-- ✅ Health check endpoint
-- ✅ Docker containerization with multi-stage builds
-- ✅ Kubernetes deployment manifests
-- ✅ Automated CI/CD with GitHub Actions
-- ✅ Security scanning (SAST & DAST)
-- ✅ Comprehensive unit tests
-- ✅ Production-ready with Gunicorn
+- 🐍 **Backend Python** : Flask + Gunicorn + SQLite
+- 🐳 **Containerisation** : Docker multi-stage avec user non-root
+- 🔄 **CI/CD** : GitHub Actions avec 5 jobs automatisés (tests, sécurité, build, déploiement)
+- 📊 **Observabilité** : Prometheus + Grafana + Logs JSON structurés
+- 🔒 **Sécurité** : SAST (Bandit), DAST, et Trivy scanning
+- 📦 **Distribution** : Image publique sur Docker Hub
+- 🧪 **Tests** : Pytest avec 92% de couverture de code
 
-## 🛠️ Tech Stack
+---
 
-| Category | Technology |
-|----------|-----------|
-| **Backend** | Python 3.11, Flask |
-| **Database** | SQLite |
-| **Containerization** | Docker, Docker Compose |
-| **Orchestration** | Kubernetes (minikube/kind) |
-| **CI/CD** | GitHub Actions |
-| **Monitoring** | Prometheus, Grafana |
-| **Security** | Bandit (SAST), Safety, OWASP ZAP (DAST), Trivy |
-| **Testing** | Pytest |
+## 🚀 Démarrage rapide
 
-## 📦 Prerequisites
-
-- Python 3.11+
-- Docker & Docker Compose
-- Kubernetes (minikube or kind)
-- kubectl
-- Git
-
-## 🚀 Quick Start
-
-### 1. Clone the Repository
-
+### Option 1 : Docker Compose (recommandé)
 ```bash
-git clone https://github.com/YOUR_USERNAME/devops-task-api.git
+# Cloner le repository
+git clone https://github.com/helachaker/devops-task-api.git
 cd devops-task-api
+
+# Lancer tous les services
+docker-compose up -d
+
+# Voir les logs
+docker-compose logs -f app
 ```
 
-### 2. Run Locally (without Docker)
-
+### Option 2 : Docker Hub
 ```bash
-# Create virtual environment
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+# Télécharger et lancer l'image
+docker pull helachaker/task-manager-api:latest
+docker run -d -p 5000:5000 helachaker/task-manager-api:latest
+```
 
-# Install dependencies
+### Option 3 : Environnement local (développement)
+```bash
+# Créer un environnement virtuel
+python -m venv venv
+source venv/bin/activate  # Windows: venv\Scripts\activate
+
+# Installer les dépendances
 pip install -r requirements.txt
 
-# Run the application
+# Lancer l'application
 python app.py
 ```
 
-The API will be available at `http://localhost:5000`
+### 🌐 Accéder aux services
 
-### 3. Run with Docker Compose (Recommended)
+- **API** : http://localhost:5000
+- **Prometheus** : http://localhost:9090
+- **Grafana** : http://localhost:3000 (login: admin/admin)
 
-```bash
-# Start all services (API + Prometheus + Grafana)
-docker-compose up -d
+---
 
-# View logs
-docker-compose logs -f app
-
-# Stop services
-docker-compose down
-```
-
-**Access Points:**
-- API: http://localhost:5000
-- Prometheus: http://localhost:9090
-- Grafana: http://localhost:3000 (admin/admin)
-
-## 📚 API Documentation
+## 📚 Documentation API
 
 ### Base URL
 ```
 http://localhost:5000
 ```
 
-### Endpoints
+### Endpoints disponibles
 
-#### Health Check
+#### 🏥 Health Check
 ```bash
 GET /health
 ```
-**Response:**
+**Réponse :**
 ```json
 {
   "status": "healthy",
-  "timestamp": "2024-12-16T10:30:00"
+  "timestamp": "2025-12-17T10:30:00"
 }
 ```
 
-#### Metrics
+#### 📊 Métriques Prometheus
 ```bash
 GET /metrics
 ```
-Returns Prometheus-formatted metrics.
+Retourne les métriques au format Prometheus.
 
-#### Create Task
+#### ➕ Créer une tâche
 ```bash
 POST /tasks
 Content-Type: application/json
 
 {
-  "title": "Complete DevOps project",
-  "description": "Implement full CI/CD pipeline",
+  "title": "Finaliser le projet DevOps",
+  "description": "Compléter la documentation",
   "status": "pending"
 }
 ```
-**Response (201):**
+**Réponse (201) :**
 ```json
 {
   "id": 1,
@@ -143,358 +111,324 @@ Content-Type: application/json
 }
 ```
 
-#### Get All Tasks
+#### 📋 Lister toutes les tâches
 ```bash
 GET /tasks
 ```
-**Response (200):**
+**Réponse (200) :**
 ```json
 [
   {
     "id": 1,
-    "title": "Complete DevOps project",
-    "description": "Implement full CI/CD pipeline",
+    "title": "Finaliser le projet DevOps",
+    "description": "Compléter la documentation",
     "status": "pending",
-    "created_at": "2024-12-16 10:30:00"
+    "created_at": "2025-12-17 10:30:00"
   }
 ]
 ```
 
-#### Get Task by ID
+#### 🔍 Obtenir une tâche spécifique
 ```bash
 GET /tasks/{id}
 ```
-**Response (200):**
-```json
-{
-  "id": 1,
-  "title": "Complete DevOps project",
-  "description": "Implement full CI/CD pipeline",
-  "status": "pending",
-  "created_at": "2024-12-16 10:30:00"
-}
-```
 
-#### Update Task
+#### ✏️ Modifier une tâche
 ```bash
 PUT /tasks/{id}
 Content-Type: application/json
 
 {
-  "title": "Updated title",
   "status": "completed"
 }
 ```
-**Response (200):**
-```json
-{
-  "message": "Task updated successfully"
-}
-```
 
-#### Delete Task
+#### ❌ Supprimer une tâche
 ```bash
 DELETE /tasks/{id}
 ```
-**Response (200):**
-```json
-{
-  "message": "Task deleted successfully"
-}
+
+### Exemples d'utilisation
+
+**PowerShell :**
+```powershell
+# Créer une tâche
+$headers = @{"Content-Type" = "application/json"}
+$body = '{"title":"Test","description":"Demo","status":"pending"}'
+Invoke-RestMethod -Uri http://localhost:5000/tasks -Method POST -Headers $headers -Body $body
+
+# Lister les tâches
+Invoke-RestMethod -Uri http://localhost:5000/tasks
 ```
 
-### Example Usage
-
+**Bash :**
 ```bash
-# Create a task
+# Créer une tâche
 curl -X POST http://localhost:5000/tasks \
   -H "Content-Type: application/json" \
-  -d '{"title":"Learn Kubernetes","status":"pending"}'
+  -d '{"title":"Test","status":"pending"}'
 
-# Get all tasks
+# Lister les tâches
 curl http://localhost:5000/tasks
-
-# Update a task
-curl -X PUT http://localhost:5000/tasks/1 \
-  -H "Content-Type: application/json" \
-  -d '{"status":"completed"}'
-
-# Delete a task
-curl -X DELETE http://localhost:5000/tasks/1
 ```
 
-## 🐳 Docker Usage
+---
 
-### Build Image Locally
+## 🏗️ Architecture
 
-```bash
-docker build -t task-api:local .
+### Stack Docker Compose
+```
+┌─────────────────────────────────────┐
+│       Docker Compose Stack          │
+├─────────────────────────────────────┤
+│  ┌──────────┐  ┌──────────────┐   │
+│  │  API     │◄─┤  Prometheus  │   │
+│  │  :5000   │  │  :9090       │   │
+│  └──────────┘  └──────────────┘   │
+│       │              ▲              │
+│       │              │              │
+│       │        ┌─────┴─────┐       │
+│       │        │  Grafana  │       │
+│       │        │  :3000    │       │
+│       ▼        └───────────┘       │
+│  ┌──────────┐                      │
+│  │ SQLite   │                      │
+│  └──────────┘                      │
+└─────────────────────────────────────┘
 ```
 
-### Run Container
+### 📈 Pipeline CI/CD
 
-```bash
-docker run -d -p 5000:5000 --name task-api task-api:local
+Le pipeline GitHub Actions s'exécute automatiquement à chaque push sur `main` :
+```
+1. 🧪 Test & Code Quality (21s)
+   └─ Tests unitaires avec pytest
+   └─ Rapport de couverture
+
+2. 🔒 SAST Security Scan (20s)
+   └─ Bandit (analyse statique)
+   └─ Safety (dépendances)
+
+3. 🐳 Build & Push Docker (31s)
+   └─ Build multi-stage
+   └─ Push sur Docker Hub
+   └─ Trivy vulnerability scan
+
+4. 🔍 DAST Security Scan (13s)
+   └─ Tests dynamiques de l'API
+
+5. ✅ Deployment Notification (2s)
+   └─ Confirmation du déploiement
 ```
 
-### Push to Docker Hub
+**⏱️ Durée totale : ~2 minutes**
 
-```bash
-# Login
-docker login
+---
 
-# Tag image
-docker tag task-api:local YOUR_USERNAME/task-api:latest
+## 🛠️ Technologies utilisées
 
-# Push
-docker push YOUR_USERNAME/task-api:latest
-```
+| Catégorie | Technologies |
+|-----------|-------------|
+| **Backend** | Python 3.11, Flask, Gunicorn, SQLite |
+| **Containerisation** | Docker, Docker Compose |
+| **CI/CD** | GitHub Actions |
+| **Observabilité** | Prometheus, Grafana |
+| **Sécurité** | Bandit (SAST), Trivy, DAST |
+| **Tests** | Pytest, Coverage |
+| **Versioning** | Git, GitHub |
 
-## ☸️ Kubernetes Deployment
+---
 
-### Using minikube
+## 📊 Observabilité
 
-```bash
-# Start minikube
-minikube start
+### Métriques Prometheus
 
-# Update image in k8s/deployment.yaml with your Docker Hub username
-sed -i 's/YOUR_DOCKERHUB_USERNAME/your-username/g' k8s/deployment.yaml
+L'application expose des métriques au format Prometheus sur `/metrics` :
 
-# Apply manifests
-kubectl apply -f k8s/
+- `api_requests_total` : Nombre total de requêtes (par méthode, endpoint, statut)
+- `api_request_duration_seconds` : Histogramme de latence
 
-# Check deployment
-kubectl get deployments
-kubectl get pods
-kubectl get services
-
-# Access the application
-minikube service task-api-service --url
-
-# Or use port forwarding
-kubectl port-forward service/task-api-service 8080:80
-```
-
-### Scale the Application
-
-```bash
-# Manual scaling
-kubectl scale deployment task-api --replicas=5
-
-# Autoscaling (HPA already configured)
-kubectl get hpa
-```
-
-### View Logs
-
-```bash
-# All pods
-kubectl logs -l app=task-api --tail=100 -f
-
-# Specific pod
-kubectl logs <pod-name> -f
-```
-
-### Cleanup
-
-```bash
-kubectl delete -f k8s/
-minikube stop
-```
-
-## 📊 Observability
-
-### Metrics
-
-The application exposes Prometheus metrics at `/metrics`:
-
-- `api_requests_total`: Total number of API requests (labeled by method, endpoint, status)
-- `api_request_duration_seconds`: Request latency histogram
-
-**View Metrics:**
+**Voir les métriques :**
 ```bash
 curl http://localhost:5000/metrics
 ```
 
-### Logs
+### Dashboards Grafana
 
-Structured JSON logs for all requests and errors:
+1. Accéder à Grafana : http://localhost:3000
+2. Login : `admin` / `admin`
+3. Ajouter Prometheus comme data source : `http://prometheus:9090`
+4. Créer des dashboards personnalisés
 
+**Exemples de requêtes PromQL :**
+```promql
+# Taux de requêtes par minute
+rate(api_requests_total[1m]) * 60
+
+# Latence moyenne
+rate(api_request_duration_seconds_sum[5m]) / rate(api_request_duration_seconds_count[5m])
+
+# Requêtes par endpoint
+sum by (endpoint) (api_requests_total)
+```
+
+### Logs structurés
+
+Tous les logs sont au format JSON :
 ```bash
 # Docker Compose
 docker-compose logs -f app
 
-# Kubernetes
-kubectl logs -l app=task-api -f
+# Exemple de log
+{"time":"2025-12-17 10:30:00", "level":"INFO", "message":"Response: 200 - Latency: 0.001s"}
 ```
 
-### Grafana Dashboard
+---
 
-1. Access Grafana: http://localhost:3000
-2. Login: admin/admin
-3. Add Prometheus data source: http://prometheus:9090
-4. Import dashboard or create custom queries
+## 🔒 Sécurité
 
-**Example PromQL Queries:**
-```promql
-# Request rate
-rate(api_requests_total[5m])
+### SAST (Static Application Security Testing)
 
-# Error rate
-rate(api_requests_total{status=~"5.."}[5m])
-
-# P95 latency
-histogram_quantile(0.95, rate(api_request_duration_seconds_bucket[5m]))
-```
-
-## 🔒 Security
-
-### SAST (Static Analysis)
-
-The project uses **Bandit** for static security analysis:
-
+**Bandit** analyse le code Python pour détecter les vulnérabilités :
 ```bash
-# Run locally
 pip install bandit
 bandit -r . -f json -o bandit-report.json
 ```
 
-### Dependency Scanning
+### Scan de dépendances
 
-Using **Safety** to check for vulnerable dependencies:
-
+**Safety** vérifie les vulnérabilités connues dans les dépendances :
 ```bash
 pip install safety
 safety check
 ```
 
-### Container Scanning
+### Scan de containers
 
-**Trivy** scans Docker images for vulnerabilities:
-
+**Trivy** scanne l'image Docker pour les vulnérabilités :
 ```bash
-# Install Trivy
-# See: https://aquasecurity.github.io/trivy/
-
-# Scan image
-trivy image YOUR_USERNAME/task-api:latest
+trivy image helachaker/task-manager-api:latest
 ```
 
-### DAST (Dynamic Analysis)
+### DAST (Dynamic Application Security Testing)
 
-**OWASP ZAP** performs runtime security testing:
+Tests de sécurité dynamiques sur l'application en cours d'exécution.
 
-```bash
-# Using Docker
-docker run -t owasp/zap2docker-stable zap-baseline.py \
-  -t http://localhost:5000
-```
+**Tous ces scans sont automatisés dans le pipeline CI/CD ! 🔐**
 
-All security scans are automated in the CI/CD pipeline.
+---
 
-## 💻 Development
+## 💻 Développement
 
-### Running Tests
-
-```bash
-# Run all tests
-pytest tests/ -v
-
-# With coverage
-pytest tests/ --cov=app --cov-report=html
-
-# Open coverage report
-open htmlcov/index.html
-```
-
-### Project Structure
-
+### Structure du projet
 ```
 devops-task-api/
 ├── .github/
 │   └── workflows/
-│       └── ci-cd.yml          # GitHub Actions workflow
+│       └── ci-cd.yml          # Pipeline GitHub Actions
 ├── k8s/
-│   ├── deployment.yaml        # K8s deployment & service
+│   ├── deployment.yaml        # Déploiement Kubernetes
+│   ├── service.yaml           # Service K8s
 │   ├── configmap.yaml         # Configuration
-│   └── hpa.yaml               # Horizontal Pod Autoscaler
+│   └── hpa.yaml               # Auto-scaling
 ├── tests/
-│   ├── __init__.py
-│   └── test_app.py            # Unit tests
+│   └── test_app.py            # Tests unitaires
 ├── .zap/
-│   └── rules.tsv              # OWASP ZAP rules
-├── app.py                     # Main application
-├── requirements.txt           # Python dependencies
-├── Dockerfile                 # Multi-stage Docker build
-├── docker-compose.yml         # Local dev environment
-├── prometheus.yml             # Prometheus config
+│   └── rules.tsv              # Règles OWASP ZAP
+├── app.py                     # Application Flask (150 lignes)
+├── requirements.txt           # Dépendances Python
+├── Dockerfile                 # Build multi-stage
+├── docker-compose.yml         # Orchestration locale
+├── prometheus.yml             # Configuration Prometheus
 ├── .dockerignore
 ├── .gitignore
-├── .bandit                    # Bandit config
-└── README.md
+├── .bandit                    # Configuration Bandit
+└── README.md                  # Ce fichier
 ```
 
-## 🔄 CI/CD Pipeline
+### Lancer les tests
+```bash
+# Tous les tests
+pytest tests/ -v
 
-The GitHub Actions workflow automatically:
+# Avec couverture
+pytest tests/ --cov=app --cov-report=html
 
-1. **Test**: Runs unit tests with coverage
-2. **SAST**: Performs static security analysis (Bandit, Safety)
-3. **Build**: Creates Docker image and pushes to Docker Hub
-4. **Scan**: Scans container with Trivy
-5. **DAST**: Runs OWASP ZAP security tests
-6. **Notify**: Reports deployment status
+# Voir le rapport
+open htmlcov/index.html  # macOS
+start htmlcov/index.html  # Windows
+```
 
-### Setting Up CI/CD
+### Contribuer
 
-1. Fork this repository
-2. Add GitHub Secrets:
-   - `DOCKER_USERNAME`: Your Docker Hub username
-   - `DOCKER_PASSWORD`: Your Docker Hub password/token
-3. Push to main branch to trigger the pipeline
+1. Créer une GitHub Issue
+2. Créer une branche : `git checkout -b feature/ma-fonctionnalite`
+3. Faire les modifications
+4. Lancer les tests : `pytest tests/`
+5. Commit : `git commit -m "feat: description"`
+6. Push : `git push origin feature/ma-fonctionnalite`
+7. Créer une Pull Request
 
-### Pipeline Status
+---
 
-View the pipeline status in the Actions tab of your repository.
+## 🔄 Configuration CI/CD
 
-## 🤝 Contributing
+### Prérequis GitHub
 
-### Making Changes
+Pour activer le pipeline, ajouter ces secrets dans GitHub :
 
-1. Create a GitHub Issue for your task
-2. Create a feature branch: `git checkout -b feature/issue-XX`
-3. Make your changes
-4. Run tests: `pytest tests/`
-5. Commit: `git commit -m "feat: description (closes #XX)"`
-6. Push: `git push origin feature/issue-XX`
-7. Create a Pull Request
+1. Aller sur : `Repository → Settings → Secrets → Actions`
+2. Ajouter :
+   - `DOCKER_USERNAME` : Votre username Docker Hub
+   - `DOCKER_PASSWORD` : Votre mot de passe Docker Hub
 
-### Peer Review Guidelines
+### Déclencher le pipeline
 
-When reviewing PRs:
-- ✅ Check code quality and style
-- ✅ Verify tests pass
-- ✅ Review security implications
-- ✅ Test locally if possible
-- ✅ Provide constructive feedback
+Le pipeline se lance automatiquement :
+- ✅ À chaque push sur la branche `main`
+- ✅ À chaque Pull Request vers `main`
 
-## 📄 License
+**Voir le statut** : Actions tab sur GitHub
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+---
 
-## 🙏 Acknowledgments
+## 📊 Métriques du projet
 
-- Flask Documentation
-- Kubernetes Documentation
-- Prometheus Best Practices
-- OWASP Security Guidelines
+- ✅ **150 lignes** de code backend
+- ✅ **12 tests** unitaires (92% coverage)
+- ✅ **7 endpoints** REST API
+- ✅ **3 services** Docker (API, Prometheus, Grafana)
+- ✅ **5 jobs** CI/CD automatisés
+- ✅ **21 GitHub Issues** organisées par jour
+- ✅ **~2 minutes** pour le pipeline complet
+- ✅ **208 MB** taille de l'image Docker
+
+---
+
+## 📖 Documentation complète
+
+- [📘 Guide de démarrage](START_HERE.md)
+- [📋 Structure du projet](PROJECT_STRUCTURE.md)
+- [📝 Rapport final](FINAL_REPORT.md)
+- [🎤 Guide de présentation](PRESENTATION_GUIDE.md)
+- [🔧 Guide des commandes](COMMANDS.sh)
+
+---
+
+## 👥 Auteur
+
+**Nom :** Hela Chaker  
+**Email :** helachaker01@gmail.com  
+**Projet :** DevOps Task Manager API  
+**Date :** Décembre 2025  
+**Institution :** ENICarthage  
+
+---
 
 ## 📧 Contact
 
-Hela Chaker - helachaker01@gmail.com
-
-Project Link: [https://github.com/helachaker/devops-task-api](https://github.com/helachaker/devops-task-api)
+**Repository** : [https://github.com/helachaker/devops-task-api](https://github.com/helachaker/devops-task-api)  
+**Docker Hub** : [https://hub.docker.com/r/helachaker/task-manager-api](https://hub.docker.com/r/helachaker/task-manager-api)
 
 ---
 
